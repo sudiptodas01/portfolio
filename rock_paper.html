@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #d83737;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .game {
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #dfcccc;
+        border-radius: 10px;
+        width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    h1 {
+        font-size: 30px;
+        margin: 0;
+        color: #5e2f2f;
+    }
+    
+    .choices {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+    
+    button:hover {
+        background-color: #2980b9;
+    }
+    
+    .result {
+        margin-top: 20px;
+        font-size: 20px;
+        color: #333;
+    }
+</style>    
+</head>
+<body>
+    <div class="game">
+        <h1>Rock, Paper, Scissors</h1>
+        <div class="choices">
+            <button id="rock">Rock</button>
+            <button id="paper">Paper</button>
+            <button id="scissors">Scissors</button>
+        </div>
+        <div class="result">
+            <p id="result-text">Choose your move!</p>
+            <button id="play-again">Play Again</button>
+        </div>
+    </div>
+    <script>
+        // Function to get the computer's choice
+        function getComputerChoice() {
+            const choices = ["rock", "paper", "scissors"];
+            const randomIndex = Math.floor(Math.random() * 3);
+            return choices[randomIndex];
+        }
+        
+        // Function to determine the winner
+        function determineWinner(userChoice, computerChoice) {
+            if (userChoice === computerChoice) {
+                return "It's a tie!";
+            }
+            if ((userChoice === "rock" && computerChoice === "scissors") ||
+                (userChoice === "paper" && computerChoice === "rock") ||
+                (userChoice === "scissors" && computerChoice === "paper")) {
+                return "You win!";
+            }
+            return "Computer wins!";
+        }
+        
+        
+        
+        const rockButton = document.getElementById("rock");
+        const paperButton = document.getElementById("paper");
+        const scissorsButton = document.getElementById("scissors");
+        const resultText = document.getElementById("result-text");
+        
+        rockButton.addEventListener("click", () => playGame("rock"));
+        paperButton.addEventListener("click", () => playGame("paper"));
+        scissorsButton.addEventListener("click", () => playGame("scissors"));
+        
+        function playGame(userChoice) {
+            const computerChoice = getComputerChoice();
+            const result = determineWinner(userChoice, computerChoice);
+        
+            resultText.textContent = `You chose ${userChoice}. Computer chose ${computerChoice}. ${result}`;
+        }
+        
+        const playAgainButton = document.getElementById("play-again");
+        
+        playAgainButton.addEventListener("click", () => {
+            resultText.textContent = "Choose your move!";
+            playAgainButton.style.display = "none";
+            rockButton.style.display = "inline-block";
+            paperButton.style.display = "inline-block";
+            scissorsButton.style.display = "inline-block";
+        });
+        
+        function playGame(userChoice) {
+            const computerChoice = getComputerChoice();
+            const result = determineWinner(userChoice, computerChoice);
+        
+            resultText.textContent = `You chose ${userChoice}. Computer chose ${computerChoice}. ${result}`;
+            
+            playAgainButton.style.display = "inline-block";
+            rockButton.style.display = "none";
+            paperButton.style.display = "none";
+            scissorsButton.style.display = "none";
+        }
+        </script>
+    
+</body>
+</html>
